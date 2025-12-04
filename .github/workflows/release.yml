@@ -1,0 +1,45 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up CMake
+      uses: jwlawson/actions-setup-cmake@v1
+      with:
+        cmake-version: '3.21.2' # Укажите нужную версию CMake
+
+    - name: Build
+      run: |
+        mkdir build
+        cd build
+        cmake ..
+        make
+
+    - name: Create Release
+      id: create_release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: v1.0.0 # Укажите версию релиза (можно динамически генерировать)
+        release_name: Release v1.0.0
+        body: |
+          Changes in this release...
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Upload Release Asset
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: v1.0.0 # Укажите версию релиза (можно динамически генерировать)
+        files: build/my_program # Путь к вашему исполняемому файлу
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
