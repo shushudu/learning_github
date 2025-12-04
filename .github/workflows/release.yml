@@ -36,10 +36,3 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Upload Release Asset
-      uses: softprops/action-gh-release@v1
-      with:
-        tag_name: v1.0.0 # Укажите версию релиза (можно динамически генерировать)
-        files: build/my_program # Путь к вашему исполняемому файлу
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
