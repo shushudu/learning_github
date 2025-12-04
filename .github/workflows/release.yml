@@ -28,15 +28,15 @@ jobs:
         mkdir build
         cd build
         cmake ..
-        cmake --build ..
+        cmake --build .
 
     - name: Create Release
       id: create_release
       uses: softprops/action-gh-release@v1
       with:
         tag_name: v1.0.0 # Укажите версию релиза (можно динамически генерировать)
-        name: v1.0.4
-        files: build/hello_world.exe # Путь к вашему исполняемому файлу
+        name: v1.0.5
+        files: build/Debug/hello_world.exe # Путь к вашему исполняемому файлу
         body: |
           Changes in this release...
 
