@@ -37,3 +37,14 @@ jobs:
         tag_name: v1.0.0 # Укажите версию релиза (можно динамически генерировать)
         body: |
           Changes in this release...
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+          
+     - name: Upload Release Asset
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: v1.0.0 # Укажите версию релиза (можно динамически генерировать)
+        files: build/hello_world # Путь к вашему исполняемому файлу
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
