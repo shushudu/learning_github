@@ -18,6 +18,23 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+
+
+      - name: Install Chocolatey
+        run: |
+          Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+
+      - name: Install Pandoc and LaTeX
+        run: |
+          choco install pandoc
+          choco install miktex
+
+      - name: Build PDF
+        run: |
+          mkdir build
+          pandoc README.md -o build/README.pdf
+          
+          
     - name: Set up CMake
       uses: jwlawson/actions-setup-cmake@v1
       with:
@@ -34,19 +51,7 @@ jobs:
 
 
 
-      - name: Install Chocolatey
-        run: |
-          Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
-      - name: Install Pandoc and LaTeX
-        run: |
-          choco install pandoc
-          choco install miktex
-
-      - name: Build PDF
-        run: |
-          mkdir output
-          pandoc README.md -o build/README.pdf
 
          
     - name: Create Release
@@ -54,7 +59,7 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         tag_name: v1.0.0 # Укажите версию релиза (можно динамически генерировать)
-        files: build/Debug/hello_world.exe # Путь к вашему исполняемому файлу
+        # files: build/Debug/hello_world.exe
         files: build/README.pdf
         body: |
           Changes in this release...
