@@ -30,20 +30,15 @@ jobs:
     - name: Build PDF
       run: |
           mkdir -p output
-          pandoc your_markdown_file.md -o output/your_document.pdf
+          pandoc README.md -o output/README.pdf
 
-    - name: Upload PDF
-      uses: actions/upload-artifact@v2
-      with:
-        name: pdf-artifact
-        path: output/your_document.pdf    
-          
+         
           
     - name: Create Release
       id: create_release
       uses: softprops/action-gh-release@v1
       with:
         tag_name: v1.0.0 # Укажите версию релиза (можно динамически генерировать)
-        files: output/your_document.pdf 
+        files: output/README.pdf 
         body: |
           Changes in this release...
