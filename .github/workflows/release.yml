@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     permissions:
         contents: write
@@ -35,8 +35,8 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         tag_name: v1.0.0 # Укажите версию релиза (можно динамически генерировать)
-        name: v1.0.2
-        files: build/hello_world # Путь к вашему исполняемому файлу
+        name: v1.0.3
+        files: build/hello_world.exe # Путь к вашему исполняемому файлу
         body: |
           Changes in this release...
 
